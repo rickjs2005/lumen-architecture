@@ -1,0 +1,85 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: 14vh;
+}
+
+.head {
+  text-align: center;
+  margin-bottom: 50px;
+  .eyebrow {
+    @include eyebrow;
+  }
+  h2 {
+    @include display;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    margin-top: 18px;
+  }
+  p {
+    color: $gray;
+    margin-top: 14px;
+    font-size: 15px;
+  }
+}
+
+.stage {
+  position: relative;
+  height: 74vh;
+  min-height: 520px;
+  border: 1px solid $line;
+  background: $paper-2;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.hint {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  @include eyebrow;
+  color: $gray;
+  pointer-events: none;
+}
+
+.rooms {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: rgba($paper, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid $line;
+  border-radius: 999px;
+  @include mobile {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc(100% - 32px);
+  }
+
+  button {
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: $gray;
+    transition: all 0.4s $ease;
+
+    &:hover {
+      color: $ink;
+    }
+    &.active {
+      background: $ink;
+      color: $paper;
+    }
+  }
+}

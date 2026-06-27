@@ -1,0 +1,128 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba($ink, 0.62);
+  backdrop-filter: blur(6px);
+  @include mobile {
+    padding: 16px;
+    align-items: flex-end;
+  }
+}
+
+.panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  width: 100%;
+  max-width: 980px;
+  max-height: 88vh;
+  overflow: hidden;
+  background: $paper;
+  color: $ink;
+  box-shadow: 0 40px 100px -40px rgba($ink, 0.6);
+  @include tablet {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  line-height: 1;
+  color: $paper;
+  background: rgba($ink, 0.45);
+  border: none;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.4s $ease;
+  &:hover {
+    background: rgba($ink, 0.75);
+  }
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: $paper-2;
+  @include tablet {
+    aspect-ratio: 16 / 10;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cat {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    @include eyebrow;
+    color: $paper;
+    background: rgba($ink, 0.55);
+    padding: 7px 12px;
+    backdrop-filter: blur(6px);
+  }
+}
+
+.body {
+  padding: 48px 44px;
+  overflow-y: auto;
+  @include mobile {
+    padding: 32px 24px;
+  }
+
+  h3 {
+    @include display;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+  }
+  .place {
+    @include eyebrow;
+    color: $gray;
+    margin-top: 10px;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin: 30px 0;
+    padding: 22px 0;
+    border-block: 1px solid $line;
+
+    dt {
+      @include eyebrow;
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+    dd {
+      font-family: $serif;
+      font-size: 1.3rem;
+      color: $ink;
+    }
+  }
+
+  .blurb {
+    font-size: 15px;
+    line-height: 1.75;
+    color: $gray;
+  }
+}

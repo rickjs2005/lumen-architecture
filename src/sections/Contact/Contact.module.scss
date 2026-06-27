@@ -1,0 +1,180 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: 14vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+.left {
+  .eyebrow {
+    @include eyebrow-line;
+  }
+  h2 {
+    @include display;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    margin-top: 24px;
+  }
+}
+
+.info {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  a,
+  span {
+    display: block;
+  }
+  .k {
+    @include eyebrow;
+    color: $gray;
+    margin-bottom: 6px;
+  }
+  .v {
+    font-size: 17px;
+    font-weight: 500;
+  }
+}
+
+// "mapa" estilizado (sem backend)
+.map {
+  margin-top: 46px;
+  position: relative;
+  height: 200px;
+  border: 1px solid $line;
+  background: $paper-2;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba($ink, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($ink, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba($gold, 0.4);
+    transform: rotate(-12deg);
+  }
+  .pin {
+    position: absolute;
+    top: 50%;
+    left: 46%;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: $gold;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 0 rgba($gold, 0.5);
+    animation: pulse 2.4s infinite;
+  }
+  .label {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    @include eyebrow;
+    color: $gray;
+  }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba($gold, 0.5); }
+  70% { box-shadow: 0 0 0 22px rgba($gold, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($gold, 0); }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.field {
+  position: relative;
+  label {
+    @include eyebrow;
+    color: $gray;
+    display: block;
+    margin-bottom: 12px;
+  }
+  input,
+  textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid $line;
+    padding: 10px 0;
+    font-family: $sans;
+    font-size: 16px;
+    color: $ink;
+    transition: border-color 0.4s $ease;
+    &:focus {
+      outline: none;
+      border-color: $ink;
+    }
+    &::placeholder {
+      color: rgba($ink, 0.3);
+    }
+  }
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+}
+
+.submit {
+  align-self: flex-start;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 34px;
+  border-radius: 999px;
+  background: $ink;
+  color: $paper;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  span {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.5s $ease;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $gold;
+    transform: translateY(101%);
+    transition: transform 0.5s $ease;
+  }
+  &:hover::after {
+    transform: translateY(0);
+  }
+  &:hover span {
+    color: $ink;
+  }
+}
+
+.sent {
+  font-size: 14px;
+  color: $gold;
+}

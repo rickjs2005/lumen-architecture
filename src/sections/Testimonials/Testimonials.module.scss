@@ -1,0 +1,114 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  background: $paper-2;
+  padding-block: 16vh;
+  overflow: hidden;
+}
+
+.inner {
+  @include container;
+  max-width: 1100px;
+}
+
+.eyebrow {
+  @include eyebrow;
+  text-align: center;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.viewport {
+  position: relative;
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  blockquote {
+    @include display;
+    font-size: clamp(1.6rem, 3.6vw, 2.8rem);
+    line-height: 1.25;
+    max-width: 22ch;
+  }
+
+  .who {
+    margin-top: 38px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    img {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+    .name {
+      text-align: left;
+      .n {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .r {
+        @include eyebrow;
+        color: $gray;
+        font-size: 10px;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+.controls {
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+
+  button {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid $line;
+    display: grid;
+    place-items: center;
+    transition: all 0.4s $ease;
+    &:hover {
+      background: $ink;
+      color: $paper;
+      border-color: $ink;
+    }
+  }
+
+  .dots {
+    display: flex;
+    gap: 8px;
+    button {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      background: rgba($ink, 0.2);
+      &.on {
+        background: $gold;
+        width: 22px;
+        border-radius: 999px;
+      }
+      &:hover {
+        background: rgba($ink, 0.4);
+      }
+    }
+  }
+}

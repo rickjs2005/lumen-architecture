@@ -1,0 +1,48 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: 10vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid $line;
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cell {
+  padding: 56px 24px;
+  border-right: 1px solid $line;
+  &:last-child {
+    border-right: none;
+  }
+  @include mobile {
+    padding: 38px 16px;
+    &:nth-child(2) {
+      border-right: none;
+    }
+    &:nth-child(-n + 2) {
+      border-bottom: 1px solid $line;
+    }
+  }
+
+  .value {
+    @include display;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    em {
+      color: $gold;
+      font-style: normal;
+    }
+  }
+  .label {
+    @include eyebrow;
+    margin-top: 16px;
+  }
+}

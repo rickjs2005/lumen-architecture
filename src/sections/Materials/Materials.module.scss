@@ -1,0 +1,103 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: 14vh;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 56px;
+  .eyebrow {
+    @include eyebrow;
+    margin-bottom: 14px;
+  }
+  h2 {
+    @include display;
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  }
+  p {
+    max-width: 32ch;
+    color: $gray;
+    font-size: 15px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  perspective: 1000px;
+}
+
+.inner {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  aspect-ratio: 3 / 4.4;
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-shadow: 0 10px 30px -20px rgba($ink, 0.4);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) saturate(0.95);
+    transition: transform 1s $ease, filter 1s $ease;
+  }
+  &:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0) saturate(1.05);
+  }
+
+  .grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($ink, 0.78), rgba($ink, 0.05) 60%);
+  }
+
+  .body {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 22px 20px;
+    color: $paper;
+    transform: translateZ(40px);
+
+    .note {
+      @include eyebrow;
+      color: $gold;
+      margin-bottom: 8px;
+    }
+    h3 {
+      @include display;
+      font-size: 1.7rem;
+    }
+    p {
+      margin-top: 10px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: rgba($paper, 0.72);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.6s $ease;
+    }
+  }
+  &:hover .body p {
+    max-height: 80px;
+    opacity: 1;
+  }
+}

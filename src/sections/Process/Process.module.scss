@@ -1,0 +1,110 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  background: $ink;
+  color: $paper;
+  padding-block: 16vh;
+}
+
+.inner {
+  @include container;
+}
+
+.head {
+  margin-bottom: 9vh;
+  .eyebrow {
+    @include eyebrow;
+    color: $gold;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    &::before {
+      content: "";
+      width: 46px;
+      height: 1px;
+      background: $gold;
+    }
+  }
+  h2 {
+    @include display;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    margin-top: 24px;
+  }
+}
+
+.timeline {
+  position: relative;
+  padding-left: 90px;
+  @include mobile {
+    padding-left: 56px;
+  }
+}
+
+.track {
+  position: absolute;
+  left: 30px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: rgba($paper, 0.16);
+  @include mobile {
+    left: 18px;
+  }
+
+  .fill {
+    position: absolute;
+    inset: 0 0 auto 0;
+    width: 1px;
+    height: 100%;
+    background: $gold;
+    transform-origin: top;
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  padding-block: 5vh;
+  border-top: 1px solid rgba($paper, 0.12);
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  &:first-child {
+    border-top: none;
+  }
+
+  .dot {
+    position: absolute;
+    left: -64px;
+    top: calc(5vh + 6px);
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: $ink;
+    border: 1px solid $gold;
+    @include mobile {
+      left: -42px;
+    }
+  }
+
+  .n {
+    @include display;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    color: rgba($paper, 0.85);
+  }
+  h3 {
+    @include display;
+    font-size: 1.9rem;
+    margin-bottom: 12px;
+  }
+  p {
+    color: rgba($paper, 0.6);
+    font-size: 15px;
+    max-width: 46ch;
+  }
+}

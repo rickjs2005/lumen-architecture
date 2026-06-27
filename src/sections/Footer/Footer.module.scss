@@ -1,0 +1,79 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.footer {
+  background: $ink;
+  color: $paper;
+  padding-top: 10vh;
+  overflow: hidden;
+}
+
+.top {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-bottom: 8vh;
+  border-bottom: 1px solid rgba($paper, 0.12);
+
+  .claim {
+    @include display;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    max-width: 16ch;
+  }
+
+  .cols {
+    display: flex;
+    gap: 70px;
+    @include mobile {
+      gap: 44px;
+    }
+  }
+  .col {
+    .k {
+      @include eyebrow;
+      color: $gold;
+      margin-bottom: 18px;
+    }
+    a,
+    span {
+      display: block;
+      color: rgba($paper, 0.7);
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.3s $ease;
+    }
+    a:hover {
+      color: $paper;
+    }
+  }
+}
+
+.word {
+  @include container;
+  line-height: 0.8;
+  padding-block: 6vh 4vh;
+  span {
+    @include display;
+    display: block;
+    font-size: clamp(5rem, 28vw, 26rem);
+    text-align: center;
+    color: $paper;
+    i {
+      font-style: normal;
+      color: $gold;
+    }
+  }
+}
+
+.bottom {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-bottom: 40px;
+  font-size: 12px;
+  color: rgba($paper, 0.4);
+}

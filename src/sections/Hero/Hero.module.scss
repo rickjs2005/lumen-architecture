@@ -1,0 +1,162 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.hero {
+  position: relative;
+  height: 560vh; // 6 fases da jornada
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  @include container;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 8vh;
+}
+
+.meta {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  @include eyebrow;
+  @include mobile {
+    top: 86px;
+  }
+}
+
+.headline {
+  max-width: 980px;
+
+  .eyebrow {
+    @include eyebrow-line;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    @include display;
+    font-size: clamp(3.2rem, 9vw, 9rem);
+    color: $ink;
+
+    em {
+      font-style: italic;
+      color: $gray;
+    }
+  }
+
+  .sub {
+    margin-top: 26px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+
+    p {
+      max-width: 30ch;
+      color: $gray;
+      font-size: 15px;
+    }
+  }
+}
+
+.discover {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: $ink;
+  color: $paper;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  span {
+    transition: transform 0.5s $ease;
+  }
+  &:hover span {
+    transform: translateX(5px);
+  }
+}
+
+// legenda da fase (canto inferior, troca durante a jornada)
+.phase {
+  position: absolute;
+  left: 0;
+  bottom: 8vh;
+  @include container;
+
+  .pn {
+    @include display;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: 1;
+  }
+  .pi {
+    @include eyebrow;
+    color: $gold;
+    margin-bottom: 10px;
+  }
+}
+
+// barra de progresso vertical
+.progress {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 160px;
+  width: 1px;
+  background: rgba($ink, 0.14);
+  @include tablet {
+    display: none;
+  }
+
+  i {
+    position: absolute;
+    inset: 0 0 auto 0;
+    display: block;
+    width: 1px;
+    background: $ink;
+    transform-origin: top;
+  }
+}
+
+.scrollHint {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  @include eyebrow;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(to bottom, $ink, transparent);
+  }
+}

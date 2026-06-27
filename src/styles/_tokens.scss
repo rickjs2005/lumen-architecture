@@ -1,0 +1,19 @@
+// ── Lumen Architecture — design tokens ──────────────────────────────
+$paper: #f8f8f6; // background
+$ink: #1b1b1b; // texto
+$gray: #8b8b8b; // cinza secundário
+$gold: #b68d40; // detalhe (usar com extrema parcimônia)
+$line: #e3e2dd; // hairline
+$paper-2: #f0efea; // superfície levemente mais escura
+
+$ease: cubic-bezier(0.22, 1, 0.36, 1); // saída suave (entradas)
+$ease-inout: cubic-bezier(0.76, 0, 0.24, 1); // máscaras/cortinas
+
+$serif: "Cormorant Garamond", Georgia, serif;
+$sans: "Manrope", system-ui, -apple-system, sans-serif;
+
+$container: 1480px;
+
+// breakpoints
+$bp-tablet: 900px;
+$bp-mobile: 600px;

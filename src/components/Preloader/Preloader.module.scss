@@ -1,0 +1,71 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.pre {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: $paper;
+  display: grid;
+  place-items: center;
+  transition: clip-path 0.9s $ease-inout, opacity 0.6s ease 0.3s;
+  clip-path: inset(0 0 0% 0);
+
+  &.done {
+    clip-path: inset(0 0 100% 0);
+    pointer-events: none;
+  }
+}
+
+.mark {
+  @include display;
+  font-size: clamp(3rem, 10vw, 7rem);
+  position: relative;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: rise 0.9s $ease forwards 0.1s;
+  }
+  i {
+    font-style: normal;
+    color: $gold;
+  }
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.bottom {
+  position: absolute;
+  inset: auto 0 40px 0;
+  @include container;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .line {
+    height: 1px;
+    width: 40%;
+    background: $line;
+    position: relative;
+    @include mobile {
+      display: none;
+    }
+    i {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: $gold;
+      transform-origin: left;
+    }
+  }
+  .count {
+    @include display;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-variant-numeric: tabular-nums;
+  }
+}
