@@ -70,15 +70,21 @@ export function House({ glass = "simple" }: { glass?: "premium" | "simple" }) {
         <meshStandardMaterial color="#dcdad2" roughness={0.9} />
       </mesh>
 
-      {/* pavimento térreo (concreto branco) */}
+      {/* pavimento térreo (concreto branco) — face frontal (+z) invisível: a
+          fachada é só vidro, para a sala/cozinha ficarem visíveis de fora */}
       <mesh position={[-0.4, 1.45, 0]} castShadow receiveShadow>
         <boxGeometry args={[6.6, 2.5, 4.8]} />
-        <meshStandardMaterial color="#f3f1ec" roughness={0.78} />
+        <meshStandardMaterial attach="material-0" color="#f3f1ec" roughness={0.78} />
+        <meshStandardMaterial attach="material-1" color="#f3f1ec" roughness={0.78} />
+        <meshStandardMaterial attach="material-2" color="#f3f1ec" roughness={0.78} />
+        <meshStandardMaterial attach="material-3" color="#f3f1ec" roughness={0.78} />
+        <meshStandardMaterial attach="material-4" visible={false} />
+        <meshStandardMaterial attach="material-5" color="#f3f1ec" roughness={0.78} />
       </mesh>
 
-      {/* fachada de vidro (frente, z+) */}
-      <mesh position={[-0.4, 1.5, 2.45]}>
-        <boxGeometry args={[6.2, 2.1, 0.06]} />
+      {/* fachada de vidro (frente, z+) — cobre toda a abertura da face frontal */}
+      <mesh position={[-0.4, 1.45, 2.45]}>
+        <boxGeometry args={[6.5, 2.4, 0.06]} />
         <GlassMat premium={premiumGlass} />
       </mesh>
 
@@ -105,15 +111,21 @@ export function House({ glass = "simple" }: { glass?: "premium" | "simple" }) {
         </mesh>
       ))}
 
-      {/* pavimento superior em balanço */}
+      {/* pavimento superior em balanço — face frontal (+z) invisível: o
+          quarto fica visível de fora através do vidro */}
       <mesh position={[0.9, 4.0, -0.1]} castShadow receiveShadow>
         <boxGeometry args={[5.4, 2.3, 4.4]} />
-        <meshStandardMaterial color="#ece9e2" roughness={0.8} />
+        <meshStandardMaterial attach="material-0" color="#ece9e2" roughness={0.8} />
+        <meshStandardMaterial attach="material-1" color="#ece9e2" roughness={0.8} />
+        <meshStandardMaterial attach="material-2" color="#ece9e2" roughness={0.8} />
+        <meshStandardMaterial attach="material-3" color="#ece9e2" roughness={0.8} />
+        <meshStandardMaterial attach="material-4" visible={false} />
+        <meshStandardMaterial attach="material-5" color="#ece9e2" roughness={0.8} />
       </mesh>
 
-      {/* rasgo de vidro do superior */}
-      <mesh position={[0.9, 4.1, 2.05]}>
-        <boxGeometry args={[5.0, 1.4, 0.05]} />
+      {/* vidro do superior — cobre toda a abertura da face frontal */}
+      <mesh position={[0.9, 4.0, 2.1]}>
+        <boxGeometry args={[5.3, 2.2, 0.05]} />
         <GlassMat premium={premiumGlass} />
       </mesh>
       {/* caixilhos do rasgo superior (moldura fina sup./inf.) */}
@@ -280,22 +292,24 @@ export function House({ glass = "simple" }: { glass?: "premium" | "simple" }) {
         <meshStandardMaterial color="#b08b5e" roughness={0.85} />
       </mesh>
 
-      {/* piscina (rebaixo) */}
-      <mesh position={[4.4, 0.06, 1.4]} receiveShadow>
+      {/* piscina (rebaixo) — acima do nível do deck (y top 0.24): senão a
+          madeira do deck cobre toda a piscina e a água nunca aparece */}
+      <mesh position={[4.4, 0.34, 1.4]} receiveShadow>
         <boxGeometry args={[3.6, 0.16, 2.2]} />
         <meshStandardMaterial color="#0f3b44" roughness={0.2} metalness={0.2} />
       </mesh>
       {/* água */}
-      <mesh ref={water} position={[4.4, 0.16, 1.4]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={water} position={[4.4, 0.43, 1.4]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[3.4, 2.0]} />
         <meshStandardMaterial color="#5fa9b8" roughness={0.08} metalness={0.6} transparent opacity={0.55} />
       </mesh>
 
-      {/* brilho interno quente */}
+      {/* brilho interno quente — na parede de fundo (não mais bloqueando a
+          vista da sala agora que a fachada de vidro está aberta) */}
       <group ref={glow} position={[-0.4, 1.4, 0]}>
         <pointLight color="#ffd9a0" intensity={6} distance={7} decay={2} />
-        <mesh position={[0, 0, 1.9]}>
-          <planeGeometry args={[5.4, 1.6]} />
+        <mesh position={[0, 0, -2.35]}>
+          <planeGeometry args={[4, 1.1]} />
           <meshStandardMaterial color="#ffcf95" emissive="#ffb45e" emissiveIntensity={0.5} toneMapped={false} />
         </mesh>
       </group>
