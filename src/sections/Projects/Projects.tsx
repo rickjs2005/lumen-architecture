@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { PROJECTS, type Project } from "@/constants/site";
 import { Reveal } from "@/components/anim/Reveal";
 import { SplitText } from "@/components/anim/SplitText";
@@ -6,8 +6,17 @@ import { ProjectModal } from "@/components/ProjectModal/ProjectModal";
 import { Img } from "@/components/Img";
 import styles from "./Projects.module.scss";
 
+const ALL = "Todos";
+
 export function Projects() {
   const [active, setActive] = useState<Project | null>(null);
+  const [filter, setFilter] = useState<string>(ALL);
+
+  const categories = useMemo(
+    () => [ALL, ...Array.from(new Set(PROJECTS.map((p) => p.category)))],
+    [],
+  );
+  const visible = filter === ALL ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
 
   return (
     <section id="projects" className={styles.section}>
@@ -25,9 +34,23 @@ export function Projects() {
         </Reveal>
       </div>
 
+      <div className={styles.filters} role="group" aria-label="Filtrar por categoria">
+        {categories.map((c) => (
+          <button
+            key={c}
+            type="button"
+            className={`${styles.chip} ${filter === c ? styles.chipActive : ""}`}
+            aria-pressed={filter === c}
+            onClick={() => setFilter(c)}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
       <div className={styles.grid}>
-        {PROJECTS.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 2) * 0.08}>
+        {visible.map((p, i) => (
+          <Reveal key={p.id} delay={(i % 2) * 0.08} layout>
             <button
               type="button"
               className={styles.card}

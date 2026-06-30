@@ -2,9 +2,22 @@
 @use "../../styles/mixins" as *;
 
 .section {
+  position: relative;
   background: $paper-2;
   padding-block: 16vh;
   overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba($gold, 0.08), transparent 65%);
+    pointer-events: none;
+  }
 }
 
 .inner {

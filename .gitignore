@@ -33,3 +33,5 @@ playwright-report
 .env.*
 !.env.example
 .github/workflows/
+
+.vercel

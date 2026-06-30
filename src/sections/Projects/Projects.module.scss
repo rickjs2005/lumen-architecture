@@ -28,6 +28,39 @@
   }
 }
 
+.filters {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid $line;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $gray;
+  transition: border-color 0.3s $ease, color 0.3s $ease, background 0.3s $ease;
+
+  &:hover {
+    border-color: $ink;
+    color: $ink;
+  }
+}
+
+.chipActive {
+  background: $ink;
+  color: $paper;
+  border-color: $ink;
+  &:hover {
+    color: $paper;
+  }
+}
+
 .grid {
   margin-top: 60px;
   display: grid;
@@ -59,12 +92,22 @@
   color: inherit;
   cursor: pointer;
   appearance: none;
+  transition: transform 0.5s $ease;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
 
   .frame {
     position: relative;
     overflow: hidden;
     aspect-ratio: 4 / 5;
     background: $paper-2;
+    box-shadow: 0 10px 24px -18px rgba($ink, 0.3);
+    transition: box-shadow 0.5s $ease;
+  }
+  &:hover .frame {
+    box-shadow: 0 34px 60px -24px rgba($ink, 0.45);
   }
 
   img {

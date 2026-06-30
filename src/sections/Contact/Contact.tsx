@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { STUDIO } from "@/constants/site";
+import { STUDIO, whatsappLink } from "@/constants/site";
 import { Reveal } from "@/components/anim/Reveal";
 import { SplitText } from "@/components/anim/SplitText";
 import styles from "./Contact.module.scss";
 
+type Status = "idle" | "sending" | "sent";
+
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true); // sem backend — apenas feedback
+    if (status !== "idle") return;
+    setStatus("sending"); // sem backend — apenas feedback
+    window.setTimeout(() => setStatus("sent"), 900);
   };
 
   return (
@@ -31,7 +35,21 @@ export function Contact() {
             </div>
             <div>
               <p className={styles.k}>Telefone</p>
-              <span className={styles.v}>{STUDIO.phone}</span>
+              <a className={styles.v} href={`tel:${STUDIO.phone.replace(/\D/g, "")}`} data-cursor="Ligar">
+                {STUDIO.phone}
+              </a>
+            </div>
+            <div>
+              <p className={styles.k}>WhatsApp</p>
+              <a
+                className={styles.v}
+                href={whatsappLink("Olá! Gostaria de solicitar um orçamento.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="Abrir"
+              >
+                Conversar agora
+              </a>
             </div>
             <div>
               <p className={styles.k}>Estúdio</p>
@@ -60,11 +78,17 @@ export function Contact() {
               <textarea id="msg" name="msg" placeholder="Conte-nos sobre o lugar que você imagina." required />
             </div>
 
-            {sent ? (
+            {status === "sent" ? (
               <p className={styles.sent}>✦ Recebido. Entraremos em contato em breve.</p>
             ) : (
-              <button type="submit" className={styles.submit} data-cursor="Abrir">
-                <span>Enviar mensagem →</span>
+              <button
+                type="submit"
+                className={styles.submit}
+                data-cursor="Abrir"
+                disabled={status === "sending"}
+                aria-busy={status === "sending"}
+              >
+                <span>{status === "sending" ? "Enviando…" : "Enviar mensagem →"}</span>
               </button>
             )}
           </form>

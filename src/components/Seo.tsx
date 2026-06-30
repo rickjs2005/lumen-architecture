@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { STUDIO, META } from "@/constants/site";
+import { STUDIO, META, SERVICES } from "@/constants/site";
 
 export function Seo() {
   const title = `${STUDIO.full} — Arquitetura contemporânea`;
@@ -17,7 +17,20 @@ export function Seo() {
       "@type": "PostalAddress",
       streetAddress: STUDIO.address,
     },
+    areaServed: "BR",
     sameAs: [STUDIO.instagram],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Serviços",
+      itemListElement: SERVICES.map((s) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: s.title,
+          description: s.desc,
+        },
+      })),
+    },
   };
 
   return (

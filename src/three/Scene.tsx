@@ -1,23 +1,11 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows, SoftShadows } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { Lights } from "./Lights";
 import { House } from "./House";
 import { CameraRig } from "./CameraRig";
-
-/** Reativo a telas pequenas — usado para aliviar a cena (perf mobile). */
-function useIsMobile() {
-  const [mobile, setMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    const on = () => setMobile(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return mobile;
-}
 
 /** Cena 3D de fundo do hero. `active` controla o frameloop (perf fora da viewport). */
 export function Scene({ active }: { active: boolean }) {
@@ -45,7 +33,7 @@ export function Scene({ active }: { active: boolean }) {
           scale={44}
           blur={2.6}
           far={12}
-          resolution={1024}
+          resolution={isMobile ? 512 : 1024}
           color="#1b1b1b"
         />
         {/* Bloom desligado no mobile para aliviar a GPU */}

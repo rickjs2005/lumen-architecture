@@ -18,8 +18,13 @@
 .cell {
   padding: 56px 24px;
   border-right: 1px solid $line;
+  position: relative;
+  transition: background 0.5s $ease;
   &:last-child {
     border-right: none;
+  }
+  &:hover {
+    background: rgba($gold, 0.05);
   }
   @include mobile {
     padding: 38px 16px;
@@ -36,10 +41,14 @@
     font-size: clamp(3rem, 7vw, 5.5rem);
     line-height: 1;
     font-variant-numeric: tabular-nums;
+    transition: transform 0.5s $ease;
     em {
       color: $gold;
       font-style: normal;
     }
+  }
+  &:hover .value {
+    transform: translateY(-4px);
   }
   .label {
     @include eyebrow;

@@ -82,6 +82,8 @@ export function Hero() {
           )}
         </div>
 
+        <div aria-hidden className={styles.scrim} />
+
         <div className={styles.meta}>
           <span>Est. 2009 — Belo Horizonte</span>
           <span>19° 55′ S · 43° 56′ O</span>
@@ -98,7 +100,7 @@ export function Hero() {
                 exit={{ opacity: 0, filter: "blur(6px)", y: -20 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className={styles.eyebrow}>Arquitetura contemporânea</p>
+                <p className={styles.eyebrow}>Arquitetura contemporânea · do conceito à obra</p>
                 <h1>
                   <SplitText text="Espaços de" on="mount" />
                   <br />
@@ -108,12 +110,18 @@ export function Hero() {
                 </h1>
                 <div className={styles.sub}>
                   <p>
-                    Projetamos residências e lugares públicos onde estrutura, luz natural e
-                    paisagem se tornam uma só ideia.
+                    Projetamos e acompanhamos residências e lugares públicos de alto padrão — do
+                    conceito ao canteiro — onde estrutura, luz natural e paisagem se tornam uma só
+                    ideia.
                   </p>
-                  <a href="#projects" className={styles.discover} data-cursor="Abrir">
-                    Descobrir projetos <span>→</span>
-                  </a>
+                  <div className={styles.ctas}>
+                    <a href="#contact" className={styles.primaryCta} data-cursor="Abrir">
+                      Solicitar orçamento <span>→</span>
+                    </a>
+                    <a href="#projects" className={styles.discover} data-cursor="Abrir">
+                      Descobrir projetos
+                    </a>
+                  </div>
                 </div>
               </m.div>
             ) : (

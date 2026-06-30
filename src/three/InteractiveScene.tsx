@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import { Color, type PointLight } from "three";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { Residence } from "./Residence";
 import { Lights } from "./Lights";
 
@@ -38,10 +39,11 @@ function Mood({ room }: { room: RoomId }) {
 
 export function InteractiveScene({ room, active }: { room: RoomId; active: boolean }) {
   const reduced = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
   return (
     <Canvas
       shadows
-      dpr={[1, 1.6]}
+      dpr={isMobile ? [1, 1.3] : [1, 1.6]}
       frameloop={active ? "always" : "never"}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       camera={{ position: [9, 5, 11], fov: 40 }}
@@ -52,7 +54,15 @@ export function InteractiveScene({ room, active }: { room: RoomId; active: boole
         <Lights />
         <Mood room={room} />
         <Residence />
-        <ContactShadows position={[0, 0.31, 0]} opacity={0.32} scale={40} blur={2.6} far={12} color="#1b1b1b" />
+        <ContactShadows
+          position={[0, 0.31, 0]}
+          opacity={0.32}
+          scale={40}
+          blur={2.6}
+          far={12}
+          resolution={isMobile ? 512 : 1024}
+          color="#1b1b1b"
+        />
       </Suspense>
       <OrbitControls
         enablePan={false}

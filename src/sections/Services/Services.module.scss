@@ -1,0 +1,126 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: 14vh;
+}
+
+.head {
+  max-width: 760px;
+  margin-bottom: 64px;
+
+  .eyebrow {
+    @include eyebrow-line;
+    margin-bottom: 24px;
+  }
+  h2 {
+    @include display;
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  }
+  .intro {
+    margin-top: 22px;
+    color: $gray;
+    font-size: 15px;
+    max-width: 50ch;
+  }
+}
+
+.list {
+  position: relative;
+  border-top: 1px solid $line;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1.3fr;
+  align-items: center;
+  gap: 36px;
+  padding-block: 32px;
+  border-bottom: 1px solid $line;
+  transition: background 0.4s $ease, padding-left 0.4s $ease;
+  outline: none;
+
+  .index {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .icon {
+    width: 22px;
+    height: 22px;
+    color: $gold;
+    opacity: 0.8;
+    transition: transform 0.4s $ease;
+  }
+  .n {
+    @include eyebrow;
+    color: $gray;
+  }
+  &:hover .icon,
+  &.on .icon,
+  &:focus-visible .icon {
+    transform: translateX(4px);
+  }
+  h3 {
+    @include display;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    transition: color 0.4s $ease, transform 0.4s $ease;
+  }
+  p {
+    color: $gray;
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 50ch;
+  }
+
+  &:hover,
+  &.on,
+  &:focus-visible {
+    background: rgba($gold, 0.06);
+    padding-left: 18px;
+  }
+  &:hover h3,
+  &.on h3,
+  &:focus-visible h3 {
+    color: $gold;
+    transform: translateX(8px);
+  }
+
+  @include tablet {
+    grid-template-columns: 48px 1fr;
+    row-gap: 10px;
+    p {
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+  }
+  @include mobile {
+    padding-block: 22px;
+    gap: 16px;
+    &:hover,
+    &.on {
+      padding-left: 0;
+    }
+  }
+}
+
+.preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 280px;
+  height: 360px;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 40px 80px -30px rgba($ink, 0.45);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

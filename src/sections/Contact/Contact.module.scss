@@ -172,6 +172,14 @@
   &:hover span {
     color: $ink;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+    &::after {
+      transform: translateY(101%);
+    }
+  }
 }
 
 .sent {

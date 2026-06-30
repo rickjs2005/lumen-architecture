@@ -7,10 +7,12 @@ type Props = {
   className?: string;
   delay?: number;
   y?: number;
+  /** anima o reposicionamento (FLIP) quando a lista ao redor muda — ex.: filtros */
+  layout?: boolean;
 };
 
 /** Fade + subida suave ao entrar na viewport (uma vez). */
-export function Reveal({ children, className, delay = 0, y = 26 }: Props) {
+export function Reveal({ children, className, delay = 0, y = 26, layout = false }: Props) {
   const reduce = useReducedMotion();
 
   const variants: Variants = {
@@ -25,6 +27,7 @@ export function Reveal({ children, className, delay = 0, y = 26 }: Props) {
   return (
     <m.div
       className={className}
+      layout={layout}
       variants={variants}
       initial="hidden"
       whileInView="show"

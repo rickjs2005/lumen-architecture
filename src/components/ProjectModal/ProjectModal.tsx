@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import type { Project } from "@/constants/site";
 import { EASE } from "@/constants/anim";
@@ -12,6 +12,8 @@ type Props = {
 
 export function ProjectModal({ project, onClose }: Props) {
   const open = project !== null;
+  const [imgIndex, setImgIndex] = useState(0);
+  const images = project ? [project.image, ...project.gallery] : [];
 
   // ESC fecha + trava scroll do body enquanto aberto
   useEffect(() => {
@@ -27,6 +29,11 @@ export function ProjectModal({ project, onClose }: Props) {
       document.body.style.overflow = prev;
     };
   }, [open, onClose]);
+
+  // volta para a imagem de capa sempre que um novo projeto é aberto
+  useEffect(() => {
+    setImgIndex(0);
+  }, [project?.id]);
 
   return (
     <AnimatePresence>
@@ -61,8 +68,30 @@ export function ProjectModal({ project, onClose }: Props) {
             </button>
 
             <div className={styles.frame}>
-              <Img src={project.image} alt={project.title} sizes="(max-width:760px) 92vw, 46vw" />
+              <Img
+                src={images[imgIndex] ?? project.image}
+                alt={`${project.title} — imagem ${imgIndex + 1} de ${images.length}`}
+                sizes="(max-width:760px) 92vw, 46vw"
+              />
               <span className={styles.cat}>{project.category}</span>
+
+              {images.length > 1 && (
+                <div className={styles.thumbs} role="tablist" aria-label="Imagens do projeto">
+                  {images.map((src, i) => (
+                    <button
+                      key={src + i}
+                      type="button"
+                      role="tab"
+                      aria-selected={i === imgIndex}
+                      aria-label={`Ver imagem ${i + 1}`}
+                      className={`${styles.thumb} ${i === imgIndex ? styles.thumbActive : ""}`}
+                      onClick={() => setImgIndex(i)}
+                    >
+                      <img src={src} alt="" loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className={styles.body}>

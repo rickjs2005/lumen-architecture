@@ -1,0 +1,78 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.band {
+  background: $ink;
+  color: $paper;
+  padding-block: 14vh;
+  text-align: center;
+}
+
+.inner {
+  @include container;
+  max-width: 900px;
+}
+
+.eyebrow {
+  @include eyebrow;
+  color: $gold;
+  margin-bottom: 22px;
+}
+
+h2 {
+  @include display;
+  font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+  line-height: 1.04;
+
+  em {
+    font-style: italic;
+    color: $gold;
+  }
+}
+
+.actions {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 18px 36px;
+  border-radius: 999px;
+  background: $gold;
+  color: $ink;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: transform 0.4s $ease, box-shadow 0.4s $ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -16px rgba($gold, 0.55);
+  }
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 18px 34px;
+  border-radius: 999px;
+  border: 1px solid rgba($paper, 0.3);
+  color: $paper;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.4s $ease, background 0.4s $ease;
+
+  &:hover {
+    border-color: $paper;
+    background: rgba($paper, 0.08);
+  }
+}

@@ -18,6 +18,20 @@
   inset: 0;
 }
 
+// garante legibilidade do texto (topo e rodapé) independente do frame 3D ativo
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba($paper, 0.5) 0%,
+    rgba($paper, 0) 20%,
+    rgba($paper, 0) 52%,
+    rgba($paper, 0.92) 100%
+  );
+}
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -71,32 +85,64 @@
     flex-wrap: wrap;
 
     p {
-      max-width: 30ch;
+      max-width: 32ch;
       color: $gray;
       font-size: 15px;
     }
   }
 }
 
-.discover {
+.ctas {
   pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.primaryCta {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   padding: 16px 30px;
   border-radius: 999px;
-  background: $ink;
-  color: $paper;
+  background: $gold;
+  color: $ink;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  box-shadow: 0 16px 34px -16px rgba($gold, 0.6);
+  transition: transform 0.4s $ease, box-shadow 0.4s $ease;
 
   span {
     transition: transform 0.5s $ease;
   }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -14px rgba($gold, 0.75);
+  }
   &:hover span {
     transform: translateX(5px);
+  }
+}
+
+.discover {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba($ink, 0.25);
+  color: $ink;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.4s $ease, background 0.4s $ease;
+
+  &:hover {
+    border-color: $ink;
+    background: rgba($ink, 0.05);
   }
 }
 
@@ -158,5 +204,10 @@
     width: 1px;
     height: 34px;
     background: linear-gradient(to bottom, $ink, transparent);
+  }
+
+  // o CTA duplo ocupa essa faixa em telas baixas — evita sobreposição
+  @include mobile {
+    display: none;
   }
 }

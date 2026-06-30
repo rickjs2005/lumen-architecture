@@ -48,6 +48,11 @@
   transform-style: preserve-3d;
   will-change: transform;
   box-shadow: 0 10px 30px -20px rgba($ink, 0.4);
+  transition: box-shadow 0.5s $ease;
+
+  &:hover {
+    box-shadow: 0 34px 64px -24px rgba($ink, 0.55);
+  }
 
   img {
     position: absolute;

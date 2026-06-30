@@ -1,0 +1,33 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid $line;
+  background: $paper;
+  padding-block: 22px;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 32s linear infinite;
+
+  span {
+    @include display;
+    flex-shrink: 0;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    color: rgba($ink, 0.16);
+    white-space: nowrap;
+    padding-inline: 24px;
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
