@@ -25,11 +25,20 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba($paper, 0.5) 0%,
-    rgba($paper, 0) 20%,
-    rgba($paper, 0) 52%,
-    rgba($paper, 0.92) 100%
+    rgba($paper, 0.62) 0%,
+    rgba($paper, 0.05) 22%,
+    rgba($paper, 0.05) 42%,
+    rgba($paper, 0.97) 100%
   );
+}
+
+// halo suave atrás do texto — garante leitura mesmo quando o frame 3D
+// embaixo tem áreas escuras ou muito detalhadas (janelas, mobília etc.)
+@mixin text-halo {
+  text-shadow:
+    0 1px 2px rgba($paper, 0.9),
+    0 2px 10px rgba($paper, 0.85),
+    0 4px 28px rgba($paper, 0.7);
 }
 
 .overlay {
@@ -52,6 +61,8 @@
   display: flex;
   justify-content: space-between;
   @include eyebrow;
+  @include text-halo;
+  color: $ink;
   @include mobile {
     top: 86px;
   }
@@ -62,17 +73,19 @@
 
   .eyebrow {
     @include eyebrow-line;
+    @include text-halo;
     margin-bottom: 22px;
   }
 
   h1 {
     @include display;
+    @include text-halo;
     font-size: clamp(3.2rem, 9vw, 9rem);
     color: $ink;
 
     em {
       font-style: italic;
-      color: $gray;
+      color: rgba($ink, 0.7);
     }
   }
 
@@ -85,8 +98,9 @@
     flex-wrap: wrap;
 
     p {
+      @include text-halo;
       max-width: 32ch;
-      color: $gray;
+      color: rgba($ink, 0.66);
       font-size: 15px;
     }
   }
@@ -155,11 +169,14 @@
 
   .pn {
     @include display;
+    @include text-halo;
     font-size: clamp(2.4rem, 6vw, 4.5rem);
     line-height: 1;
+    color: $ink;
   }
   .pi {
     @include eyebrow;
+    @include text-halo;
     color: $gold;
     margin-bottom: 10px;
   }
@@ -194,6 +211,8 @@
   bottom: 30px;
   transform: translateX(-50%);
   @include eyebrow;
+  @include text-halo;
+  color: $ink;
   font-size: 10px;
   display: flex;
   flex-direction: column;
