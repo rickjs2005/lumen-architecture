@@ -1,10 +1,11 @@
 import { Suspense, useRef, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ContactShadows, OrbitControls } from "@react-three/drei";
+import { ContactShadows, OrbitControls, PerformanceMonitor } from "@react-three/drei";
 import { Color, Vector3, type PointLight } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useAdaptiveDpr } from "@/hooks/useAdaptiveDpr";
 import { Residence } from "./Residence";
 import { Lights } from "./Lights";
 
@@ -80,16 +81,19 @@ function Mood({ room }: { room: RoomId }) {
 export function InteractiveScene({ room, active }: { room: RoomId; active: boolean }) {
   const reduced = usePrefersReducedMotion();
   const isMobile = useIsMobile();
+  // dpr segue o fps real (mesma estratégia da cena do hero)
+  const { dpr, onPerf } = useAdaptiveDpr(isMobile ? 0.85 : 0.6, isMobile ? 1.3 : 1.6);
   const controlsRef = useRef<OrbitControlsImpl>(null);
   return (
     <Canvas
       shadows
-      dpr={isMobile ? [1, 1.3] : [1, 1.6]}
+      dpr={dpr}
       frameloop={active ? "always" : "never"}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       camera={{ position: [9, 5, 11], fov: 40 }}
       data-cursor="Explore"
     >
+      <PerformanceMonitor ms={200} iterations={6} step={0.2} onChange={onPerf} />
       <color attach="background" args={["#f0efea"]} />
       <Suspense fallback={null}>
         <Lights />
