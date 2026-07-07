@@ -66,6 +66,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px 50px;
+  @include tablet {
+    // entre 600-900px os cards de 4:5 ficavam espremidos em 2 colunas —
+    // mesmo breakpoint que Services/Contact já usam pra essa faixa.
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
   @include mobile {
     grid-template-columns: 1fr;
     gap: 44px;
@@ -74,8 +80,25 @@
   // segundo e terceiro deslocados (ritmo editorial)
   > *:nth-child(even) {
     transform: translateY(60px);
-    @include mobile {
+    @include tablet {
       transform: none;
+    }
+  }
+
+  // primeiro projeto em destaque (lead) — dá hierarquia ao melhor trabalho em
+  // vez de tratar todos os cards com o mesmo peso visual.
+  > *:first-child {
+    grid-column: 1 / -1;
+    transform: none;
+
+    .frame {
+      aspect-ratio: 16 / 9;
+      @include mobile {
+        aspect-ratio: 4 / 5;
+      }
+    }
+    h3 {
+      font-size: 2.3rem;
     }
   }
 }
@@ -125,7 +148,10 @@
   .veil {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba($ink, 0.5), transparent 55%);
+    // gradiente mais raso (35% em vez de 50%) pra não brigar com o realce de
+    // saturação da imagem no mesmo hover — o véu existe só pra dar contraste
+    // ao badge de categoria, não pra escurecer a foto inteira.
+    background: linear-gradient(to top, rgba($ink, 0.4), transparent 45%);
     opacity: 0;
     transition: opacity 0.6s $ease;
   }

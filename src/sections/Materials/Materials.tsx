@@ -30,6 +30,7 @@ function Card({ material }: { material: Material }) {
       <m.div
         ref={ref}
         className={styles.inner}
+        data-cursor={material.name}
         onMouseMove={onMove}
         onMouseLeave={reset}
         style={{ rotateX: rx, rotateY: ry }}

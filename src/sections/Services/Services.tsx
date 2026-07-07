@@ -119,6 +119,11 @@ export function Services() {
               </div>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
+              {/* mesma imagem do preview flutuante (desktop), mas sempre visível —
+                  em touch não existe hover, então o preview nunca apareceria */}
+              <div className={styles.thumb}>
+                <Img src={s.image} alt="" sizes="120px" />
+              </div>
             </div>
           </Reveal>
         ))}

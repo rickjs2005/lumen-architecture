@@ -29,8 +29,13 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  // minmax maior evita colunas espremidas (com 180px, 3+ colunas ficavam
+  // estreitas demais pra um card com tilt 3D e texto por cima da foto)
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @include mobile {
     grid-template-columns: 1fr;
   }
@@ -99,6 +104,12 @@
       opacity: 0;
       overflow: hidden;
       transition: all 0.6s $ease;
+
+      // em touch não existe hover real — sem isso a descrição nunca aparece
+      @media (hover: none) {
+        max-height: 80px;
+        opacity: 1;
+      }
     }
   }
   &:hover .body p {
