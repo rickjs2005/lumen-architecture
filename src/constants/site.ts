@@ -8,10 +8,10 @@ export const STUDIO = {
   name: "Lumen",
   full: "Lumen Architecture",
   tagline: "Arquitetura contemporânea — luz, matéria e precisão.",
-  email: "studio@lumen.archi",
-  phone: "+55 31 4000-0000",
-  whatsapp: "5531940000000",
-  address: "Rua das Acácias, 240 — Belo Horizonte, BR",
+  email: "studio@lumen.example",
+  phone: "+55 31 0000-0000",
+  whatsapp: "5531000000000",
+  address: "Savassi — Belo Horizonte, BR",
   instagram: "https://instagram.com",
 };
 
@@ -150,6 +150,6 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const META = {
-  url: "https://lumen.archi",
+  url: "https://lumen-architecture-drab.vercel.app",
   ogImage: img("1600585154340-be6161a56a0c", 1200),
 };

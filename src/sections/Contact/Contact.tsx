@@ -71,7 +71,7 @@ export function Contact() {
             </div>
             <div className={styles.field}>
               <label htmlFor="email">E-mail</label>
-              <input id="email" name="email" type="email" placeholder="voce@email.com" required />
+              <input id="email" name="email" type="email" placeholder="voce@example.com" required />
             </div>
             <div className={styles.field}>
               <label htmlFor="msg">Projeto</label>
